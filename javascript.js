@@ -18,6 +18,7 @@
 	if (playerNumber == 3){var x ="playertwo.png"};
 
 	
+	
     var pause = 0;
     var all = 0;
     var a = 0;
@@ -41,12 +42,7 @@
     var ts = 0;
 	
 	function changePlayer(){
-	var playerNumber = prompt("Queres mudar para que icone? 1, 2 ou 3?");
-		if (playerNumber == 1){var x ="x.png"};
-		if (playerNumber == 2){var x ="playerone.png"};
-		if (playerNumber == 3){var x ="playertwo.png"};
-		if (playerNumber > 3 || playerNumber < 0){alert("Esse número do jogador é inválido!")};
-		playAgain();
+		location.reload();
 		}
 	
     function help() {
