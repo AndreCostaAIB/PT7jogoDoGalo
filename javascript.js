@@ -1,25 +1,26 @@
+	
+	//Variáveis das imagens utilizadas no jogo
 	var x ="x.png";
 
     var o = "o.png";
-    // Location of where you uploaded your site's o.jpg image
 
-    var blank = "blank.jpg";
-    // Location of where you uploaded your site's blank.jpg image
+    var branco = "branco.jpg";
 	
-	var playerNumber = prompt("Que icone queres ser? 1, 2 ou 3?");
+	// Para escolher o icone
+	var jogadorNum = prompt("Que icone queres ser? 1, 2 ou 3?");
 
-	while (playerNumber > 3 || playerNumber < 1){
+	while (jogadorNum > 3 || jogadorNum < 1){
 		alert("Esse número do jogador é inválido!")
-		playerNumber = prompt("Que icone queres ser? 1, 2 ou 3?");
+		jogadorNum = prompt("Que icone queres ser? 1, 2 ou 3?");
 		};
 	
-	if (playerNumber == 1){var x ="x.png"};
-	if (playerNumber == 2){var x ="playerone.png"};
-	if (playerNumber == 3){var x ="playertwo.png"};
+	if (jogadorNum == 1){var x ="x.png"};
+	if (jogadorNum == 2){var x ="jogador1.png"};
+	if (jogadorNum == 3){var x ="jogador2.png"};
 
 	
 	
-    var pause = 0;
+    var pausa = 0;
     var all = 0;
     var a = 0;
     var b = 0;
@@ -33,23 +34,24 @@
     var temp = "";
     var ok = 0;
     var cf = 0;
-    var choice = 9;
-    var aRandomNumber = 0;
+    var escolha = 9;
+    var numAleatorio = 0;
     var comp = 0;
     var t = 0;
     var wn = 0;
     var ls = 0;
     var ts = 0;
 	
-	function changePlayer(){
+	// Da refresh à pagina
+	function mudarJogador(){
 		location.reload();
 		}
 	
-    function help() {
-        alert("Welcome to Tic-Tac-Toe!  You play as the X's and the computer is the O's.  Select the square you want to put your X into by clicking them.  You cannot occupy a square that is already occupied. The first player to get three squares in a row wins.  Good Luck!!")
+    function ajuda() {
+        alert("Bem vindo ao Jogo do Galo! Tu jogas com o ícone que escolheres e o computador joga com os O's. Seleciona o quadrado em que queres fazer a tua jogada ao clicar nele. Não podes ocupar um quadrado em que já foi efetuada uma jogada. O primeiro jogador a ligar três quadrados juntos ganha!. Boa Sorte!")
     }
-
-    function logicOne() {
+	//Logica que o computador segue para escolher a sua jogada
+    function logicaUm() {
         if ((a == 1) && (b == 1) && (c == 1)) all = 1;
         if ((a == 1) && (d == 1) && (g == 1)) all = 1;
         if ((a == 1) && (e == 1) && (i == 1)) all = 1;
@@ -68,7 +70,7 @@
         if ((g == 2) && (e == 2) && (c == 2)) all = 2;
         if ((a != 0) && (b != 0) && (c != 0) && (d != 0) && (e != 0) && (f != 0) && (g != 0) && (h != 0) && (i != 0) && (all == 0)) all = 3;
     }
-
+	
     function logicTwo() {
         if ((a == 2) && (b == 2) && (c == 0) && (temp == "")) temp = "C";
         if ((a == 2) && (b == 0) && (c == 2) && (temp == "")) temp = "B";
@@ -122,14 +124,14 @@
         if ((g == 1) && (e == 0) && (c == 1) && (temp == "")) temp = "E";
         if ((g == 0) && (e == 1) && (c == 1) && (temp == "")) temp = "G";
     }
-
+	//Tabela de resultados
     function clearOut() {
         document.game.you.value = "0";
         document.game.computer.value = "0";
         document.game.ties.value = "0";
     }
-
-    function checkSpace() {
+	//Verifica a jogada
+    function verificarEspaco() {
         if ((temp == "A") && (a == 0)) {
             ok = 1;
             if (cf == 0) a = 1;
@@ -176,39 +178,39 @@
             if (cf == 1) i = 2;
         }
     }
-
-    function yourChoice(chName) {
-        pause = 0;
-        if (all != 0) ended();
+	//Jogada que eu realizo
+    function tuaEscolha(nomeEscolha) {
+        pausa = 0;
+        if (all != 0) fim();
         if (all == 0) {
             cf = 0;
             ok = 0;
-            temp = chName;
-            checkSpace();
+            temp = nomeEscolha;
+            verificarEspaco();
             if (ok == 1) {
-                document.images[chName].src = x;
+                document.images[nomeEscolha].src = x;
             }
-            if (ok == 0) taken();
-            process();
-            if ((all == 0) && (pause == 0)) myChoice();
+            if (ok == 0) usado();
+            processo();
+            if ((all == 0) && (pausa == 0)) minhaEscolha();
         }
     }
-
-    function taken() {
-        alert("That square is already occupied.  Please select another square.")
-        pause = 1;
+	//Avisa o jogador que a jogada é invalida
+    function usado() {
+        alert("Este quadrado está ocupado. Por favor seleciona outro.")
+        pausa = 1;
     }
-
-    function myChoice() {
+	//A minha jogada
+    function minhaEscolha() {
         temp = "";
         ok = 0;
         cf = 1;
         logicTwo();
         logicThree();
-        checkSpace();
+        verificarEspaco();
         while (ok == 0) {
-            aRandomNumber = Math.random()
-            comp = Math.round((choice - 1) * aRandomNumber) + 1;
+            numAleatorio = Math.random()
+            comp = Math.round((escolha - 1) * numAleatorio) + 1;
             if (comp == 1) temp = "A";
             if (comp == 2) temp = "B";
             if (comp == 3) temp = "C";
@@ -218,18 +220,18 @@
             if (comp == 7) temp = "G";
             if (comp == 8) temp = "H";
             if (comp == 9) temp = "I";
-            checkSpace();
+            verificarEspaco();
         }
         document.images[temp].src = o;
-        process();
+        processo();
     }
-
-    function ended() {
-        alert("The game has already ended. To play a new game click the Play Again button.")
+	//Pede ao jogador que carregue em Novo Jogo, se tentar jogar quando já acabou
+    function fim() {
+        alert("O jogo já acabou. Para jogar novamente clica no botão Novo Jogo.")
     }
-
-    function process() {
-        logicOne();
+	//No final do jogo diz quem ganha
+    function processo() {
+        logicaUm();
         if (all == 1) {
             alert("Ganhaste!");
             wn++;
@@ -248,14 +250,14 @@
             document.game.ties.value = ts;
         }
     }
-
-    function playAgain() {
+	//Função de Novo Jogo
+    function jogarOutraVez() {
         if (all == 0) {
-            if (confirm("This will restart the game and clear all the current scores. OK?")) reset();
+            if (confirm("Isto irá recomeçar o jogo e apagar toda a pontuação. OK?")) reset();
         }
         if (all > 0) reset();
     }
-
+	//O tabuleiro de jogo é limpo
     function reset() {
         all = 0;
         a = 0;
@@ -270,21 +272,21 @@
         temp = "";
         ok = 0;
         cf = 0;
-        choice = 9;
-        aRandomNumber = 0;
+        escolha = 9;
+        numAleatorio = 0;
         comp = 0;
-        document.images.A.src = blank;
-        document.images.B.src = blank;
-        document.images.C.src = blank;
-        document.images.D.src = blank;
-        document.images.E.src = blank;
-        document.images.F.src = blank;
-        document.images.G.src = blank;
-        document.images.H.src = blank;
-        document.images.I.src = blank;
+        document.images.A.src = branco;
+        document.images.B.src = branco;
+        document.images.C.src = branco;
+        document.images.D.src = branco;
+        document.images.E.src = branco;
+        document.images.F.src = branco;
+        document.images.G.src = branco;
+        document.images.H.src = branco;
+        document.images.I.src = branco;
         if (t == 0) {
             t = 2;
-            myChoice();
+            minhaEscolha();
         }
         t--;
     }
